@@ -1,4 +1,7 @@
-public with sharing class BoatDataService {
+/**
+ * @description This class will contain all method related to Account Business Logic
+ */
+public with sharing class AccountBl {
     public static final String LENGTH_TYPE = 'Length';
     public static void insertNewAccount(String accntName) {
         Account acct = new Account();
