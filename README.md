@@ -4,7 +4,7 @@
 
 ## 🚀 Installation and Usage
 
-Clone or fork the [repository](https://github.com/OexeO/salesforce-initiative)
+Clone or fork the [repository](https://github.com/herethesavior/salesforce-initiative)
 and try to introduce a new feature branch with Apex PMD violations or unformatted code
 
 ## 🤝 Contributing
