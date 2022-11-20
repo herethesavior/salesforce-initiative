@@ -1,6 +1,5 @@
 public class ApexSharingViolations {
-
-	public void main(Account a) {
-		delete a;
-	}
+    public void main(Account a) {
+        delete a;
+    }
 }

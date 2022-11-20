@@ -1,13 +1,11 @@
 public with sharing class ApexXSSFromURLParam {
+    public void main() {
+        String url = ApexPages.currentPage().getParameters().get('url_param');
 
-	public void main() {
-		String url = ApexPages.currentPage().getParameters().get('url_param');
+        doMagic(url);
+    }
 
-		doMagic(url);
-	}
-
-
-	private void doMagic(String value) {
-		//...
-	}
+    private void doMagic(String value) {
+        //...
+    }
 }
