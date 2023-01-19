@@ -10,7 +10,7 @@ jobs:
       pmd-apex: ${{ steps.changes.outputs.pmd-apex }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Get list of files with changes
@@ -20,18 +20,18 @@ jobs:
       - name: Setup Java
         # only run if there are file changes
         if: steps.changes.outputs.pmd-apex
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: "temurin"
-          java-version: "11"
+          java-version: "17"
       - name: Install PMD
         # only run if there are file changes
         if: steps.changes.outputs.pmd-apex
         run: |
-          if [ ! -d pmd-bin-6.45.0 ]; then
-            curl -L "https://github.com/pmd/pmd/releases/download/pmd_releases/6.45.0/pmd-bin-6.45.0.zip" -o pmd-bin-6.45.0.zip
-            unzip pmd-bin-6.45.0.zip
-            rm pmd-bin-6.45.0.zip
+          if [ ! -d pmd-bin-6.53.0 ]; then
+            curl -L "https://github.com/pmd/pmd/releases/download/pmd_releases/6.53.0/pmd-bin-6.53.0.zip" -o pmd-bin-6.53.0.zip
+            unzip pmd-bin-6.53.0.zip
+            rm pmd-bin-6.53.0.zip
           fi
       - name: Run PMD Analysis
         # only run if there are file changes
@@ -45,7 +45,7 @@ jobs:
         run: |
           FILE_LIST=$(mktemp)
           echo ${{ steps.changes.outputs.pmd-apex }} > $FILE_LIST
-          $(pmd-bin-6.45.0/bin/run.sh pmd --rulesets pmd-ruleset.xml --file-list $FILE_LIST --short-names --minimum-priority 5 --fail-on-violation false --no-cache --report-file PMD_REPORT.txt)
+          $(pmd-bin-6.53.0/bin/run.sh pmd --rulesets pmd-ruleset.xml --file-list $FILE_LIST --short-names --minimum-priority 5 --fail-on-violation false --no-cache --report-file PMD_REPORT.txt)
           PMD_REPORT="$(cat PMD_REPORT.txt)"
           if [ ! -z "${PMD_REPORT}" ]; then
             QUOTE_CLEANUP=${PMD_REPORT//\'/\"}
@@ -63,8 +63,9 @@ jobs:
       - name: Create PR Comment (With PMD Violation)
         # only run if there is a pmd violation generated
         if: env.PMD_REPORT != ''
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
+          result-encoding: string
           script: |
             github.rest.issues.createComment({
               issue_number: ${{ github.event.number }},
@@ -81,8 +82,9 @@ jobs:
       - name: Create PR Comment (Without PMD Violation)
         # only run if there is no pmd violation generated
         if: env.PMD_REPORT == ''
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
+          result-encoding: string
           script: |
             github.rest.issues.createComment({
               issue_number: ${{ github.event.number }},
