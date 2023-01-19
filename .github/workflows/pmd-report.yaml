@@ -90,5 +90,5 @@ jobs:
               issue_number: ${{ github.event.number }},
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: ':white_check_mark::star:**SUCCESS!**:star: We did not found any code violation in your pull request. Goodjob!'
+              body: ':white_check_mark::star:**SUCCESS!**:star: We did not find any code violation in your pull request. Goodjob!'
             })
