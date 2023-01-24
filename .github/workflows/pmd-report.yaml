@@ -81,7 +81,7 @@ jobs:
             exit 1
       - name: Create PR Comment (Without PMD Violation)
         # only run if there is no pmd violation generated
-        if: env.PMD_REPORT == ''
+        if: env.PMD_REPORT == '' && github.actor != 'dependabot[bot]'
         uses: actions/github-script@v6
         with:
           result-encoding: string
