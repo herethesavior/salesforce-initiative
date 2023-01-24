@@ -4,10 +4,13 @@
 public with sharing class AccountBl {
     public static final String LENGTH_TYPE = 'Length';
     public static void insertNewAccount(String accntName) {
-        Account acct = new Account();
-        acct.Name = accntName;
-        if (!Schema.sObjectType.Account.fields.Name.isCreateable()) {
+    
+    for (Integer i = 0; i < 10; i++) {
+            Account acct = new Account();
+            acct.Name = accntName;
+            // if (!Schema.sObjectType.Account.fields.Name.isCreateable()) {
             insert acct;
+            // }
         }
     }
     public List<Account> getAllAccount() {
