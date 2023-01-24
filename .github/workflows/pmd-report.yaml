@@ -50,6 +50,7 @@ jobs:
           if [ ! -z "${PMD_REPORT}" ]; then
             QUOTE_CLEANUP=${PMD_REPORT//\'/\"}
             PMD_REPORT="${QUOTE_CLEANUP}"
+            PMD_REPORT="${PMD_REPORT//'/home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}'/''}"
             PMD_REPORT="${PMD_REPORT//'%'/'%25'}"
             PMD_REPORT="${PMD_REPORT//$'\n'/'\n'}"
             PMD_REPORT="${PMD_REPORT//$'\r'/'%0D'}"
