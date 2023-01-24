@@ -11,6 +11,6 @@ public with sharing class AccountBl {
         }
     }
     public List<Account> getAllAccount() {
-        return [SELECT Id, Name, Phone, Website FROM Account WITH SECURITY_ENFORCED];
+        return [SELECT Id, Name, Phone, Website FROM Account];
     }
 }
