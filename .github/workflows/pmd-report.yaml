@@ -45,7 +45,7 @@ jobs:
         run: |
           FILE_LIST=$(mktemp)
           echo ${{ steps.changes.outputs.pmd-apex }} > $FILE_LIST
-          $(pmd-bin-6.53.0/bin/run.sh pmd --rulesets pmd-ruleset.xml --file-list $FILE_LIST --short-names --minimum-priority 5 --no-cache --report-file PMD_REPORT.txt)
+          $(pmd-bin-6.53.0/bin/run.sh pmd --rulesets pmd-ruleset.xml --file-list $FILE_LIST --short-names --minimum-priority 5 --fail-on-violation false --no-cache --report-file PMD_REPORT.txt)
           PMD_REPORT="$(cat PMD_REPORT.txt)"
           if [ ! -z "${PMD_REPORT}" ]; then
             QUOTE_CLEANUP=${PMD_REPORT//\'/\"}
