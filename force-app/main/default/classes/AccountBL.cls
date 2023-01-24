@@ -7,9 +7,9 @@ public with sharing class AccountBl {
         for (Integer i = 0; i < 10; i++) {
             Account acct = new Account();
             acct.Name = accntName;
-            if (!Schema.sObjectType.Account.fields.Name.isCreateable()) {
+            //if (!Schema.sObjectType.Account.fields.Name.isCreateable()) {
                 insert acct;
-            }
+            //}
         }
     }
     public List<Account> getAllAccount() {
