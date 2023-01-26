@@ -10,19 +10,16 @@
 >
     <description>Custom ruleset focused on performance and sustainability</description>
 
-    <!-- PERFORMANCE -->
-
     <!-- @name: AvoidDebugStatements
          @description:Debug statements contribute to longer transactions and consume Apex 
          CPU time even when debug logs are not being captured. When possible make use of 
          other debugging techniques such as the Apex Replay Debugger and Checkpoints that 
          could cover most use cases. -->
-    <rule
-        ref="category/apex/performance.xml/AvoidDebugStatements"
-        name="AvoidDebugStatements"
-        language="apex"
-        message="Avoid leaving System.debug() statements in code as they negatively influence performance."
-        class="net.sourceforge.pmd.lang.apex.rule.ApexXPathRule"
+    <rule name="AvoidDebugStatements"
+          ref="category/apex/performance.xml/AvoidDebugStatements"
+          language="apex"
+          message="Avoid leaving System.debug() statements in code as they negatively influence performance."
+          class="net.sourceforge.pmd.lang.apex.rule.ApexXPathRule"
     >
         <priority>1</priority>
         <properties>
@@ -41,10 +38,9 @@
          Approval class methods, Email sending, async scheduling or queueing within loops  
          can cause governor limit exceptions. Instead, try to batch up the data into a 
          list and invoke the operation once on that list of data outside the loop. -->
-    <rule
-        name="OperationWithLimitsInLoop"
-        ref="category/apex/performance.xml/OperationWithLimitsInLoop"
-        message="Avoid operations in loops that may hit governor limits"
+    <rule name="OperationWithLimitsInLoop"
+          ref="category/apex/performance.xml/OperationWithLimitsInLoop"
+          message="Avoid operations in loops that may hit governor limits"
     >
         <priority>1</priority>
     </rule>
@@ -63,10 +59,9 @@
          should be used and a SObjectDescribeOptions should be supplied. By using 
          SObjectDescribeOptions.DEFERRED the describe attributes will be lazily 
          initialized at first use.-->
-    <rule
-        name="EagerlyLoadedDescribeSObjectResult"
-        ref="category/apex/performance.xml/EagerlyLoadedDescribeSObjectResult"
-        message="Do not allow SObjectDescribeOptions.DEFAULT option to ensure consistent results no matter where getDescribe is called"
+    <rule name="EagerlyLoadedDescribeSObjectResult"
+          ref="category/apex/performance.xml/EagerlyLoadedDescribeSObjectResult"
+          message="Do not allow SObjectDescribeOptions.DEFAULT option to ensure consistent results no matter where getDescribe is called"
     >
         <priority>1</priority>
         <properties>
@@ -78,10 +73,9 @@
          @description: Avoid directly accessing Trigger.old and Trigger.new as it can 
          lead to a bug. Triggers should be bulkified and iterate through the map to
          handle the actions for each item separately. -->
-    <rule
-        name="AvoidDirectAccessTriggerMap"
-        ref="category/apex/errorprone.xml/AvoidDirectAccessTriggerMap"
-        message="Avoid directly accessing Trigger.old and Trigger.new"
+    <rule name="AvoidDirectAccessTriggerMap"
+          ref="category/apex/errorprone.xml/AvoidDirectAccessTriggerMap"
+          message="Avoid directly accessing Trigger.old and Trigger.new"
     >
         <priority>1</priority>
     </rule>
@@ -92,10 +86,9 @@
          the triggers work to a regular class (often called Trigger handler class).
 
         See more here: https://developer.salesforce.com/page/Trigger_Frameworks_and_Apex_Trigger_Best_Practices -->
-    <rule 
-        name="AvoidLogicInTrigger"
-        ref="category/apex/bestpractices.xml/AvoidLogicInTrigger"
-        message="Avoid logic in triggers, delegate the triggers work to a regular class (often called Trigger handler class">
+    <rule name="AvoidLogicInTrigger"
+          ref="category/apex/bestpractices.xml/AvoidLogicInTrigger"
+          message="Avoid logic in triggers, delegate the triggers work to a regular class (often called Trigger handler class">
         <priority>1</priority>
     </rule>
 
@@ -117,10 +110,9 @@
          Additionally, classes with many methods of moderate complexity get
          reported as well once the total of their methods’ complexities reaches 40, 
          even if none of the methods was directly reported. -->
-    <rule
-        name="CyclomaticComplexity"
-        ref="category/apex/design.xml/CyclomaticComplexity"
-        message="Logic should be broken down into several smaller methods or subcomponents"
+    <rule name="CyclomaticComplexity"
+          ref="category/apex/design.xml/CyclomaticComplexity"
+          message="Logic should be broken down into several smaller methods or subcomponents"
     >
         <priority>1</priority>
         <properties>
@@ -143,10 +135,9 @@
     
          Information about Cognitive complexity can be found in the original paper here: 
          https://www.sonarsource.com/docs/CognitiveComplexity.pdf -->
-    <rule
-        name = "CognitiveComplexity"
-        ref="category/apex/design.xml/CognitiveComplexity"
-        message="Avoid structuring complex methods and classes. They are hard to read and costly to maintain."
+    <rule name = "CognitiveComplexity"
+          ref="category/apex/design.xml/CognitiveComplexity"
+          message="Avoid structuring complex methods and classes. They are hard to read and costly to maintain."
     >
         <priority>1</priority>
         <properties>
@@ -155,20 +146,172 @@
         </properties>
     </rule>
 
-    <!-- Global classes should be avoided (especially in managed packages) as they can never be deleted or changed in signature. Always check twice if something needs to be global. Many interfaces (e.g. Batch) required global modifiers in the past but don’t require this anymore. Don’t lock yourself in. -->
-    <rule ref="category/apex/bestpractices.xml/AvoidGlobalModifier" message="Avoid using global modifier">
-        <priority>3</priority>
+    <!-- @name: AvoidDeeplyNestedIfStmts
+         @description: Avoid creating deeply nested if-then statements since they are 
+         harder to read and error-prone to maintain. -->
+    <rule name="AvoidDeeplyNestedIfStmts"
+          ref="category/apex/design.xml/AvoidDeeplyNestedIfStmts"
+          message="Deeply nested if..else statements are hard to read and error-prone to maintain"
+    >
+        <priority>1</priority>
+        <properties>
+            <property name="problemDepth" value="3" />
+        </properties>
     </rule>
 
-    <!-- Apex supported non existent annotations for legacy reasons. In the future, use of such non-existent annotations could result in broken apex code that will not compile. This will prevent users of garbage annotations from being able to use legitimate annotations added to Apex in the future.
-    A full list of supported annotations can be found at https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_annotation.htm -->
-    <rule ref="category/apex/errorprone.xml/AvoidNonExistentAnnotations">
+    <!-- @name: UnusedLocalVariable  
+         @description: Detects when a local variable is declared and/or assigned but 
+         not used. Unused local variables are most likely leftovers due to incomplete 
+         transforming of the code. Such variables take up space and gives no value
+         so they must be removed. -->
+    <rule name="UnusedLocalVariable"
+          ref="category/apex/bestpractices.xml/UnusedLocalVariable">
         <priority>1</priority>
     </rule>
 
-    <!-- When deploying Apex code between sandbox and production environments, or installing Force.com AppExchange packages, it is essential to avoid hardcoding IDs in the Apex code. By doing so, if the record IDs change between environments, the logic can dynamically identify the proper data to operate against and not fail. -->
-    <rule ref="category/apex/errorprone.xml/AvoidHardcodingId" message="Avoid hardcoding ID's">
+    <!-- @name: ApexCSRF
+         @description: Having DML operations in Apex class constructor or initializers 
+         can have unexpected side effects: By just accessing a page, the DML statements 
+         would be executed and the database would be modified. Just querying the database 
+         is permitted.
+
+         In addition to constructors and initializers, any method called init is checked 
+         as well. Salesforce Apex already protects against this scenario and raises a 
+         runtime exception. -->
+    <rule name="ApexCSRF"
+          ref="category/apex/errorprone.xml/ApexCSRF">
         <priority>1</priority>
+    </rule>
+
+    <!-- @name: EmptyCatchBlock
+         @description: Empty Catch Block finds instances where an exception is caught, 
+         but nothing is done. In most circumstances, this swallows an exception which 
+         should either be acted on or reported. -->
+    <rule name="EmptyCatchBlock"
+          ref="category/apex/errorprone.xml/EmptyCatchBlock"
+          message="Avoid empty catch blocks">
+        <priority>1</priority>
+        <properties> 
+            <property name="allowCommentedBlocks" value="false" />
+            <property name="allowExceptionNameRegex" value="^(ignored|expected)$" />
+        </properties>
+    </rule>
+
+    <!-- @name: EmptyIfStmt
+         @description: Empty If Statement finds instances where a condition is checked 
+         but nothing is done about it. -->
+    <rule name="EmptyIfStmt" 
+          ref="category/apex/errorprone.xml/EmptyIfStmt"
+          message="Avoid empty 'if' statements">
+        <priority>1</priority>
+    </rule>
+
+    <!-- @name: EmptyWhileStmt
+         @description: Empty While Statement finds all instances where a while statement 
+         does nothing. If it is a timing loop, then you should use Thread.sleep() for it; 
+         if it is a while loop that does a lot in the exit expression, rewrite it to 
+         make it clearer. -->
+    <rule name="EmptyWhileStmt"
+          ref="category/apex/errorprone.xml/EmptyWhileStmt" 
+          message="Avoid empty 'while' statements">
+        <priority>1</priority>
+    </rule>
+
+    <!-- @name: EmptyTryOrFinallyBlock
+         @description: Avoid empty try or finally blocks - what’s the point? -->
+    <rule name="EmptyTryOrFinallyBlock" 
+          ref="category/apex/errorprone.xml/EmptyTryOrFinallyBlock" 
+          message="Avoid empty 'try' or 'finally' blocks">
+        <priority>1</priority>
+    </rule>
+
+    <!-- @name: EmptyStatementBlock
+         @description: Empty block statements serve no purpose and should be removed. -->
+    <rule name="EmptyStatementBlock"
+          ref="category/apex/errorprone.xml/EmptyStatementBlock" 
+          message="Avoid empty block statements.">
+        <priority>1</priority>
+    </rule>
+
+    <!-- @name: AvoidNonExistentAnnotations
+         @description: Apex supported non existent annotations for legacy reasons. In 
+         the future, use of such non-existent annotations could result in broken apex 
+         code that will not compile. This will prevent users of garbage annotations from 
+         being able to use legitimate annotations added to Apex in the future.
+         A full list of supported annotations can be found at 
+         https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_annotation.htm -->
+    <rule name="AvoidNonExistentAnnotations"
+          ref="category/apex/errorprone.xml/AvoidNonExistentAnnotations">
+        <priority>1</priority>
+    </rule>
+
+    <!-- @name: MethodWithSameNameAsEnclosingClass
+         @description: Non-constructor methods should not have the same name as the 
+         enclosing class. -->
+    <rule name="MethodWithSameNameAsEnclosingClass"
+          ref="category/apex/errorprone.xml/MethodWithSameNameAsEnclosingClass">
+        <priority>1</priority>
+    </rule>
+
+    <!-- @name: AvoidHardcodingId
+         @description: When deploying Apex code between sandbox and production 
+         environments, or installing Force.com AppExchange packages, it is 
+         essential to avoid hardcoding IDs in the Apex code. By doing so, 
+         if the record IDs change between environments, the logic can 
+         dynamically identify the proper data to operate against and not fail. -->
+    <rule name="AvoidHardcodingId"
+          ref="category/apex/errorprone.xml/AvoidHardcodingId"
+          message="Avoid hardcoding ID's">
+        <priority>1</priority>
+    </rule>
+
+    <!-- @name: InaccessibleAuraEnabledGetter
+         @description: In the Summer ‘21 release, a mandatory security update 
+         enforces access modifiers on Apex properties in Lightning component 
+         markup. The update prevents access to private or protected Apex getters 
+         from Aura and Lightning Web Components -->
+    <rule name="InaccessibleAuraEnabledGetter" 
+          ref="category/apex/errorprone.xml/InaccessibleAuraEnabledGetter">
+       <priority>1</priority>
+    </rule>
+
+    <!-- @name: AvoidGlobalModifier
+         @description: Global classes should be avoided (especially in managed 
+         packages) as they can never be deleted or changed in signature. 
+         Always check twice if something needs to be global. Many interfaces 
+         (e.g. Batch) required global modifiers in the past but don’t require 
+         this anymore. Don’t lock yourself in. -->
+    <rule name="AvoidGlobalModifier" 
+          ref="category/apex/bestpractices.xml/AvoidGlobalModifier">
+       <priority>1</priority>
+    </rule>
+
+    <!-- @name: OverrideBothEqualsAndHashcode
+         @description: Override both public Boolean equals(Object obj), and 
+         public Integer hashCode(), or override neither. Even if you are 
+         inheriting a hashCode() from a parent class, consider implementing 
+         hashCode and explicitly delegating to your superclass
+
+         This is especially important when Using Custom Types in Map Keys and Sets - 
+         https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_collections_maps_keys_userdefined.htm -->
+    <rule name="OverrideBothEqualsAndHashcode" 
+          ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode">
+       <priority>2</priority>
+    </rule>
+
+    <!-- @name: ApexDangerousMethods
+         @description: Checks against calling dangerous methods.
+
+         For the time being, it reports:
+         * Against FinancialForce’s Configuration.disableTriggerCRUDSecurity(). 
+         Disabling CRUD security opens the door to several attacks and requires 
+         manual validation, which is unreliable.
+         * Calling System.debug passing sensitive data as parameter, which could 
+         lead to exposure of private data. -->
+    <rule name="ApexDangerousMethods" 
+          ref="category/apex/security.xml/ApexDangerousMethods"
+          message="Avoid calling potentially dangerous method">
+        <priority>2</priority>
     </rule>
 
     <!-- COMPLEXITY -->
@@ -234,17 +377,6 @@
         </properties>
     </rule>
 
-    <!-- Avoid creating deeply nested if-then statements since they are harder to read and error-prone to maintain. -->
-    <rule
-        ref="category/apex/design.xml/AvoidDeeplyNestedIfStmts"
-        message="Deeply nested if..else statements are hard to read"
-    >
-        <priority>1</priority>
-        <properties>
-            <property name="problemDepth" value="3" />
-        </properties>
-    </rule>
-
     <!-- SECURITY -->
     <!-- Detect classes declared without explicit sharing mode if DML methods are used. This forces the developer to take access restrictions into account before modifying objects. -->
     <rule
@@ -260,10 +392,6 @@
         message="Apex callouts should use encrypted communication channels"
     >
         <priority>3</priority>
-    </rule>
-
-    <rule ref="category/apex/errorprone.xml/ApexCSRF">
-        <priority>2</priority>
     </rule>
 
     <!-- Checks against redirects to user-controlled locations. This prevents attackers from redirecting users to phishing sites. -->
@@ -314,15 +442,6 @@
             <property name="undeleteAuthMethodPattern" value="AuthorizationUtil\.(is|assert)Undeletable" />
             <property name="mergeAuthMethodPattern" value="AuthorizationUtil\.(is|assert)Mergeable" />
         </properties>
-    </rule>
-
-    <!-- Checks against calling dangerous methods.
-    For the time being, it reports:
-
-    * Against FinancialForce’s Configuration.disableTriggerCRUDSecurity(). Disabling CRUD security opens the door to several attacks and requires manual validation, which is unreliable.
-    * Calling System.debug passing sensitive data as parameter, which could lead to exposure of private data. -->
-    <rule ref="category/apex/security.xml/ApexDangerousMethods" message="Calling potentially dangerous method">
-        <priority>1</priority>
     </rule>
 
     <!-- Detects hardcoded credentials used in requests to an endpoint.
@@ -381,7 +500,7 @@
     <!-- Configurable naming conventions for local variable declarations. This rule reports variable declarations which do not match the regex that applies to their specific kind (e.g. local variable, or final local variable). Each regex can be configured through properties.
     By default this rule uses the standard Apex naming convention (Camel case). -->
     <rule ref="category/apex/codestyle.xml/LocalVariableNamingConventions">
-        <priority>1</priority>
+        <priority>2</priority>
         <properties>
             <property name="finalLocalPattern" value="[a-z][a-zA-Z0-9]*" />
             <property name="localPattern" value="[a-z][a-zA-Z0-9]*" />
@@ -391,7 +510,7 @@
     <!-- Configurable naming conventions for method declarations. This rule reports method declarations which do not match the regex that applies to their specific kind (e.g. static method, or test method). Each regex can be configured through properties.
     By default this rule uses the standard Apex naming convention (Camel case). -->
     <rule ref="category/apex/codestyle.xml/MethodNamingConventions">
-        <priority>1</priority>
+        <priority>2</priority>
         <properties>
             <property name="testPattern" value="[a-z][a-zA-Z0-9]*" />
             <property name="staticPattern" value="[a-z][a-zA-Z0-9]*" />
@@ -448,49 +567,6 @@
         ref="category/apex/codestyle.xml/ForLoopsMustUseBraces"
         message="Avoid using 'for' statements without curly braces"
     >
-        <priority>3</priority>
-    </rule>
-
-    <!-- EMPTY -->
-    <!-- Empty Catch Block finds instances where an exception is caught, but nothing is done. In most circumstances, this swallows an exception which should either be acted on or reported. -->
-    <rule ref="category/apex/errorprone.xml/EmptyCatchBlock" message="Avoid empty catch blocks">
-        <priority>3</priority>
-    </rule>
-
-    <!-- Empty If Statement finds instances where a condition is checked but nothing is done about it. -->
-    <rule ref="category/apex/errorprone.xml/EmptyIfStmt" message="Avoid empty 'if' statements">
-        <priority>1</priority>
-    </rule>
-
-    <!-- Empty While Statement finds all instances where a while statement does nothing. If it is a timing loop, then you should use Thread.sleep() for it; if it is a while loop that does a lot in the exit expression, rewrite it to make it clearer. -->
-    <rule ref="category/apex/errorprone.xml/EmptyWhileStmt" message="Avoid empty 'while' statements">
-        <priority>1</priority>
-    </rule>
-
-    <!-- Avoid empty try or finally blocks - what’s the point? -->
-    <rule ref="category/apex/errorprone.xml/EmptyTryOrFinallyBlock" message="Avoid empty try or finally blocks">
-        <priority>1</priority>
-    </rule>
-
-    <!-- Empty block statements serve no purpose and should be removed. -->
-    <rule ref="category/apex/errorprone.xml/EmptyStatementBlock" message="Avoid empty block statements.">
-        <priority>1</priority>
-    </rule>
-
-    <!-- CLARITY / BEST PRACTICES -->
-    <!-- Detects when a local variable is declared and/or assigned but not used. -->
-    <rule ref="category/apex/bestpractices.xml/UnusedLocalVariable">
-        <priority>1</priority>
-    </rule>
-
-    <!-- Override both public Boolean equals(Object obj), and public Integer hashCode(), or override neither. Even if you are inheriting a hashCode() from a parent class, consider implementing hashCode and explicitly delegating to your superclass
-    This is especially important when Using Custom Types in Map Keys and Sets - https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_collections_maps_keys_userdefined.htm -->
-    <rule ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode">
-        <priority>3</priority>
-    </rule>
-
-    <!-- In the Summer ‘21 release, a mandatory security update enforces access modifiers on Apex properties in Lightning component markup. The update prevents access to private or protected Apex getters from Aura and Lightning Web Components -->
-    <rule ref="category/apex/errorprone.xml/InaccessibleAuraEnabledGetter">
         <priority>3</priority>
     </rule>
 
