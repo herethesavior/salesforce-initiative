@@ -15,11 +15,12 @@
          CPU time even when debug logs are not being captured. When possible make use of 
          other debugging techniques such as the Apex Replay Debugger and Checkpoints that 
          could cover most use cases. -->
-    <rule name="AvoidDebugStatements"
-          ref="category/apex/performance.xml/AvoidDebugStatements"
-          language="apex"
-          message="Avoid leaving System.debug() statements in code as they negatively influence performance."
-          class="net.sourceforge.pmd.lang.apex.rule.ApexXPathRule"
+    <rule
+        name="AvoidDebugStatements"
+        ref="category/apex/performance.xml/AvoidDebugStatements"
+        language="apex"
+        message="Avoid leaving System.debug() statements in code as they negatively influence performance."
+        class="net.sourceforge.pmd.lang.apex.rule.ApexXPathRule"
     >
         <priority>1</priority>
         <properties>
@@ -38,9 +39,10 @@
          Approval class methods, Email sending, async scheduling or queueing within loops  
          can cause governor limit exceptions. Instead, try to batch up the data into a 
          list and invoke the operation once on that list of data outside the loop. -->
-    <rule name="OperationWithLimitsInLoop"
-          ref="category/apex/performance.xml/OperationWithLimitsInLoop"
-          message="Avoid operations in loops that may hit governor limits"
+    <rule
+        name="OperationWithLimitsInLoop"
+        ref="category/apex/performance.xml/OperationWithLimitsInLoop"
+        message="Avoid operations in loops that may hit governor limits"
     >
         <priority>1</priority>
     </rule>
@@ -59,9 +61,10 @@
          should be used and a SObjectDescribeOptions should be supplied. By using 
          SObjectDescribeOptions.DEFERRED the describe attributes will be lazily 
          initialized at first use.-->
-    <rule name="EagerlyLoadedDescribeSObjectResult"
-          ref="category/apex/performance.xml/EagerlyLoadedDescribeSObjectResult"
-          message="Do not allow SObjectDescribeOptions.DEFAULT option to ensure consistent results no matter where getDescribe is called"
+    <rule
+        name="EagerlyLoadedDescribeSObjectResult"
+        ref="category/apex/performance.xml/EagerlyLoadedDescribeSObjectResult"
+        message="Do not allow SObjectDescribeOptions.DEFAULT option to ensure consistent results no matter where getDescribe is called"
     >
         <priority>1</priority>
         <properties>
@@ -73,9 +76,10 @@
          @description: Avoid directly accessing Trigger.old and Trigger.new as it can 
          lead to a bug. Triggers should be bulkified and iterate through the map to
          handle the actions for each item separately. -->
-    <rule name="AvoidDirectAccessTriggerMap"
-          ref="category/apex/errorprone.xml/AvoidDirectAccessTriggerMap"
-          message="Avoid directly accessing Trigger.old and Trigger.new"
+    <rule
+        name="AvoidDirectAccessTriggerMap"
+        ref="category/apex/errorprone.xml/AvoidDirectAccessTriggerMap"
+        message="Avoid directly accessing Trigger.old and Trigger.new"
     >
         <priority>1</priority>
     </rule>
@@ -86,9 +90,11 @@
          the triggers work to a regular class (often called Trigger handler class).
 
         See more here: https://developer.salesforce.com/page/Trigger_Frameworks_and_Apex_Trigger_Best_Practices -->
-    <rule name="AvoidLogicInTrigger"
-          ref="category/apex/bestpractices.xml/AvoidLogicInTrigger"
-          message="Avoid logic in triggers, delegate the triggers work to a regular class (often called Trigger handler class">
+    <rule
+        name="AvoidLogicInTrigger"
+        ref="category/apex/bestpractices.xml/AvoidLogicInTrigger"
+        message="Avoid logic in triggers, delegate the triggers work to a regular class (often called Trigger handler class"
+    >
         <priority>1</priority>
     </rule>
 
@@ -110,9 +116,10 @@
          Additionally, classes with many methods of moderate complexity get
          reported as well once the total of their methods’ complexities reaches 40, 
          even if none of the methods was directly reported. -->
-    <rule name="CyclomaticComplexity"
-          ref="category/apex/design.xml/CyclomaticComplexity"
-          message="Logic should be broken down into several smaller methods or subcomponents"
+    <rule
+        name="CyclomaticComplexity"
+        ref="category/apex/design.xml/CyclomaticComplexity"
+        message="Logic should be broken down into several smaller methods or subcomponents"
     >
         <priority>1</priority>
         <properties>
@@ -135,9 +142,10 @@
     
          Information about Cognitive complexity can be found in the original paper here: 
          https://www.sonarsource.com/docs/CognitiveComplexity.pdf -->
-    <rule name = "CognitiveComplexity"
-          ref="category/apex/design.xml/CognitiveComplexity"
-          message="Avoid structuring complex methods and classes. They are hard to read and costly to maintain."
+    <rule
+        name="CognitiveComplexity"
+        ref="category/apex/design.xml/CognitiveComplexity"
+        message="Avoid structuring complex methods and classes. They are hard to read and costly to maintain."
     >
         <priority>1</priority>
         <properties>
@@ -149,9 +157,10 @@
     <!-- @name: AvoidDeeplyNestedIfStmts
          @description: Avoid creating deeply nested if-then statements since they are 
          harder to read and error-prone to maintain. -->
-    <rule name="AvoidDeeplyNestedIfStmts"
-          ref="category/apex/design.xml/AvoidDeeplyNestedIfStmts"
-          message="Deeply nested if..else statements are hard to read and error-prone to maintain"
+    <rule
+        name="AvoidDeeplyNestedIfStmts"
+        ref="category/apex/design.xml/AvoidDeeplyNestedIfStmts"
+        message="Deeply nested if..else statements are hard to read and error-prone to maintain"
     >
         <priority>1</priority>
         <properties>
@@ -164,8 +173,7 @@
          not used. Unused local variables are most likely leftovers due to incomplete 
          transforming of the code. Such variables take up space and gives no value
          so they must be removed. -->
-    <rule name="UnusedLocalVariable"
-          ref="category/apex/bestpractices.xml/UnusedLocalVariable">
+    <rule name="UnusedLocalVariable" ref="category/apex/bestpractices.xml/UnusedLocalVariable">
         <priority>1</priority>
     </rule>
 
@@ -178,8 +186,7 @@
          In addition to constructors and initializers, any method called init is checked 
          as well. Salesforce Apex already protects against this scenario and raises a 
          runtime exception. -->
-    <rule name="ApexCSRF"
-          ref="category/apex/errorprone.xml/ApexCSRF">
+    <rule name="ApexCSRF" ref="category/apex/errorprone.xml/ApexCSRF">
         <priority>1</priority>
     </rule>
 
@@ -187,11 +194,9 @@
          @description: Empty Catch Block finds instances where an exception is caught, 
          but nothing is done. In most circumstances, this swallows an exception which 
          should either be acted on or reported. -->
-    <rule name="EmptyCatchBlock"
-          ref="category/apex/errorprone.xml/EmptyCatchBlock"
-          message="Avoid empty catch blocks">
+    <rule name="EmptyCatchBlock" ref="category/apex/errorprone.xml/EmptyCatchBlock" message="Avoid empty catch blocks">
         <priority>1</priority>
-        <properties> 
+        <properties>
             <property name="allowCommentedBlocks" value="false" />
             <property name="allowExceptionNameRegex" value="^(ignored|expected)$" />
         </properties>
@@ -200,9 +205,7 @@
     <!-- @name: EmptyIfStmt
          @description: Empty If Statement finds instances where a condition is checked 
          but nothing is done about it. -->
-    <rule name="EmptyIfStmt" 
-          ref="category/apex/errorprone.xml/EmptyIfStmt"
-          message="Avoid empty 'if' statements">
+    <rule name="EmptyIfStmt" ref="category/apex/errorprone.xml/EmptyIfStmt" message="Avoid empty 'if' statements">
         <priority>1</priority>
     </rule>
 
@@ -211,25 +214,31 @@
          does nothing. If it is a timing loop, then you should use Thread.sleep() for it; 
          if it is a while loop that does a lot in the exit expression, rewrite it to 
          make it clearer. -->
-    <rule name="EmptyWhileStmt"
-          ref="category/apex/errorprone.xml/EmptyWhileStmt" 
-          message="Avoid empty 'while' statements">
+    <rule
+        name="EmptyWhileStmt"
+        ref="category/apex/errorprone.xml/EmptyWhileStmt"
+        message="Avoid empty 'while' statements"
+    >
         <priority>1</priority>
     </rule>
 
     <!-- @name: EmptyTryOrFinallyBlock
          @description: Avoid empty try or finally blocks - what’s the point? -->
-    <rule name="EmptyTryOrFinallyBlock" 
-          ref="category/apex/errorprone.xml/EmptyTryOrFinallyBlock" 
-          message="Avoid empty 'try' or 'finally' blocks">
+    <rule
+        name="EmptyTryOrFinallyBlock"
+        ref="category/apex/errorprone.xml/EmptyTryOrFinallyBlock"
+        message="Avoid empty 'try' or 'finally' blocks"
+    >
         <priority>1</priority>
     </rule>
 
     <!-- @name: EmptyStatementBlock
          @description: Empty block statements serve no purpose and should be removed. -->
-    <rule name="EmptyStatementBlock"
-          ref="category/apex/errorprone.xml/EmptyStatementBlock" 
-          message="Avoid empty block statements.">
+    <rule
+        name="EmptyStatementBlock"
+        ref="category/apex/errorprone.xml/EmptyStatementBlock"
+        message="Avoid empty block statements."
+    >
         <priority>1</priority>
     </rule>
 
@@ -240,16 +249,17 @@
          being able to use legitimate annotations added to Apex in the future.
          A full list of supported annotations can be found at 
          https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_annotation.htm -->
-    <rule name="AvoidNonExistentAnnotations"
-          ref="category/apex/errorprone.xml/AvoidNonExistentAnnotations">
+    <rule name="AvoidNonExistentAnnotations" ref="category/apex/errorprone.xml/AvoidNonExistentAnnotations">
         <priority>1</priority>
     </rule>
 
     <!-- @name: MethodWithSameNameAsEnclosingClass
          @description: Non-constructor methods should not have the same name as the 
          enclosing class. -->
-    <rule name="MethodWithSameNameAsEnclosingClass"
-          ref="category/apex/errorprone.xml/MethodWithSameNameAsEnclosingClass">
+    <rule
+        name="MethodWithSameNameAsEnclosingClass"
+        ref="category/apex/errorprone.xml/MethodWithSameNameAsEnclosingClass"
+    >
         <priority>1</priority>
     </rule>
 
@@ -259,9 +269,7 @@
          essential to avoid hardcoding IDs in the Apex code. By doing so, 
          if the record IDs change between environments, the logic can 
          dynamically identify the proper data to operate against and not fail. -->
-    <rule name="AvoidHardcodingId"
-          ref="category/apex/errorprone.xml/AvoidHardcodingId"
-          message="Avoid hardcoding ID's">
+    <rule name="AvoidHardcodingId" ref="category/apex/errorprone.xml/AvoidHardcodingId" message="Avoid hardcoding ID's">
         <priority>1</priority>
     </rule>
 
@@ -270,9 +278,8 @@
          enforces access modifiers on Apex properties in Lightning component 
          markup. The update prevents access to private or protected Apex getters 
          from Aura and Lightning Web Components -->
-    <rule name="InaccessibleAuraEnabledGetter" 
-          ref="category/apex/errorprone.xml/InaccessibleAuraEnabledGetter">
-       <priority>1</priority>
+    <rule name="InaccessibleAuraEnabledGetter" ref="category/apex/errorprone.xml/InaccessibleAuraEnabledGetter">
+        <priority>1</priority>
     </rule>
 
     <!-- @name: AvoidGlobalModifier
@@ -281,9 +288,8 @@
          Always check twice if something needs to be global. Many interfaces 
          (e.g. Batch) required global modifiers in the past but don’t require 
          this anymore. Don’t lock yourself in. -->
-    <rule name="AvoidGlobalModifier" 
-          ref="category/apex/bestpractices.xml/AvoidGlobalModifier">
-       <priority>1</priority>
+    <rule name="AvoidGlobalModifier" ref="category/apex/bestpractices.xml/AvoidGlobalModifier">
+        <priority>1</priority>
     </rule>
 
     <!-- @name: OverrideBothEqualsAndHashcode
@@ -294,9 +300,8 @@
 
          This is especially important when Using Custom Types in Map Keys and Sets - 
          https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/langCon_apex_collections_maps_keys_userdefined.htm -->
-    <rule name="OverrideBothEqualsAndHashcode" 
-          ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode">
-       <priority>2</priority>
+    <rule name="OverrideBothEqualsAndHashcode" ref="category/apex/errorprone.xml/OverrideBothEqualsAndHashcode">
+        <priority>2</priority>
     </rule>
 
     <!-- @name: ApexDangerousMethods
@@ -308,9 +313,11 @@
          manual validation, which is unreliable.
          * Calling System.debug passing sensitive data as parameter, which could 
          lead to exposure of private data. -->
-    <rule name="ApexDangerousMethods" 
-          ref="category/apex/security.xml/ApexDangerousMethods"
-          message="Avoid calling potentially dangerous method">
+    <rule
+        name="ApexDangerousMethods"
+        ref="category/apex/security.xml/ApexDangerousMethods"
+        message="Avoid calling potentially dangerous method"
+    >
         <priority>2</priority>
     </rule>
 
@@ -319,9 +326,11 @@
          the class may be burdened with excessive responsibilities that could be 
          provided by external classes or functions. In breaking these methods 
          apart the code becomes more manageable and riper for reuse. -->
-    <rule name="ExcessiveClassLength" 
-          ref="category/apex/design.xml/ExcessiveClassLength"
-          message="Avoid really long classes (lines of code)">
+    <rule
+        name="ExcessiveClassLength"
+        ref="category/apex/design.xml/ExcessiveClassLength"
+        message="Avoid really long classes (lines of code)"
+    >
         <priority>2</priority>
         <properties>
             <property name="minimum" value="1000" />
@@ -332,9 +341,10 @@
          @description: Methods with numerous parameters are a challenge to maintain, 
          especially if most of them share the same datatype. These situations usually 
          denote the need for new objects to wrap the numerous parameters. -->
-    <rule name="ExcessiveParameterList"
-          ref="category/apex/design.xml/ExcessiveParameterList"
-          message="Instead of multiple parameters, consider wrapping param to objects"
+    <rule
+        name="ExcessiveParameterList"
+        ref="category/apex/design.xml/ExcessiveParameterList"
+        message="Instead of multiple parameters, consider wrapping param to objects"
     >
         <priority>2</priority>
         <properties>
@@ -363,9 +373,11 @@
          to determine the amount of source code that actually does stuff for a given constructor. 
          NCSS ignores comments, and counts actual statements. Using this algorithm, lines of 
          code that are split are counted as one. -->
-    <rule name="NcssConstructorCount" 
-          ref="category/apex/design.xml/NcssConstructorCount" 
-          message="The constructor has an NCSS line count of {0}">
+    <rule
+        name="NcssConstructorCount"
+        ref="category/apex/design.xml/NcssConstructorCount"
+        message="The constructor has an NCSS line count of {0}"
+    >
         <priority>3</priority>
         <properties>
             <property name="minimum" value="20" />
@@ -377,9 +389,11 @@
          to determine the amount of source code that actually does stuff for a given method. 
          NCSS ignores comments, and counts actual statements. Using this algorithm, lines of 
          code that are split are counted as one. -->
-    <rule name="NcssMethodCount"
-          ref="category/apex/design.xml/NcssMethodCount" 
-          message="The method {0}() has an NCSS line count of {1}">
+    <rule
+        name="NcssMethodCount"
+        ref="category/apex/design.xml/NcssMethodCount"
+        message="The method {0}() has an NCSS line count of {1}"
+    >
         <priority>3</priority>
         <properties>
             <property name="minimum" value="40" />
@@ -391,9 +405,11 @@
          to determine the amount of source code that actually does stuff for a given type. 
          NCSS ignores comments, and counts actual statements. Using this algorithm, lines 
          of code that are split are counted as one. -->
-    <rule name="NcssTypeCount" 
-          ref="category/apex/design.xml/NcssTypeCount" 
-          message="The type has an NCSS line count of {0}">
+    <rule
+        name="NcssTypeCount"
+        ref="category/apex/design.xml/NcssTypeCount"
+        message="The type has an NCSS line count of {0}"
+    >
         <priority>3</priority>
         <properties>
             <property name="minimum" value="500" />
@@ -405,9 +421,11 @@
          redesigned to have fewer fields, possibly through grouping related fields in new 
          objects. For example, a class with individual city/state/zip fields could park 
          them within a single Address field. -->
-    <rule name="TooManyFields" 
-          ref="category/apex/design.xml/TooManyFields" 
-          message="Avoid classes with too many fields">
+    <rule
+        name="TooManyFields"
+        ref="category/apex/design.xml/TooManyFields"
+        message="Avoid classes with too many fields"
+    >
         <priority>2</priority>
         <properties>
             <property name="maxfields" value="15" />
@@ -418,9 +436,10 @@
          @description: Detect classes declared without explicit sharing mode if DML
          methods are used. This forces the developer to take access restrictions into 
          account before modifying objects. -->
-    <rule name="ApexSharingViolations" 
-          ref="category/apex/security.xml/ApexSharingViolations"
-          message="Apex classes should declare a sharing model if DML or SOQL is used"
+    <rule
+        name="ApexSharingViolations"
+        ref="category/apex/security.xml/ApexSharingViolations"
+        message="Apex classes should declare a sharing model if DML or SOQL is used"
     >
         <priority>2</priority>
     </rule>
@@ -428,9 +447,10 @@
     <!-- @name: ApexInsecureEndpoint
          @description: Checks against accessing endpoints under plain http. You should 
          always use https for security. -->
-    <rule name="ApexInsecureEndpoint"
-          ref="category/apex/security.xml/ApexInsecureEndpoint"
-          message="Apex callouts should use encrypted communication channels"
+    <rule
+        name="ApexInsecureEndpoint"
+        ref="category/apex/security.xml/ApexInsecureEndpoint"
+        message="Apex callouts should use encrypted communication channels"
     >
         <priority>2</priority>
     </rule>
@@ -438,9 +458,10 @@
     <!-- @name: ApexOpenRedirect 
          @description: Checks against redirects to user-controlled locations. This 
          prevents attackers from redirecting users to phishing sites. -->
-    <rule name="ApexOpenRedirect" 
-          ref="category/apex/security.xml/ApexOpenRedirect"
-          message="Apex classes should safely redirect to a known location"
+    <rule
+        name="ApexOpenRedirect"
+        ref="category/apex/security.xml/ApexOpenRedirect"
+        message="Apex classes should safely redirect to a known location"
     >
         <priority>2</priority>
     </rule>
@@ -448,9 +469,10 @@
     <!-- @name: ApexSOQLInjection
          @description: Detects the usage of untrusted / unescaped variables 
          in DML queries. -->
-    <rule name="ApexSOQLInjection" 
-          ref="category/apex/security.xml/ApexSOQLInjection"
-          message="Apex classes should escape variables merged in DML query"
+    <rule
+        name="ApexSOQLInjection"
+        ref="category/apex/security.xml/ApexSOQLInjection"
+        message="Apex classes should escape variables merged in DML query"
     >
         <priority>2</priority>
     </rule>
@@ -458,9 +480,10 @@
     <!-- @name: ApexXSSFromURLParam
          @description: Makes sure that all values obtained from URL parameters 
          are properly escaped / sanitized to avoid XSS attacks. -->
-    <rule name="ApexXSSFromURLParam" 
-          ref="category/apex/security.xml/ApexXSSFromURLParam"
-          message="Apex classes should escape Strings obtained from URL parameters"
+    <rule
+        name="ApexXSSFromURLParam"
+        ref="category/apex/security.xml/ApexXSSFromURLParam"
+        message="Apex classes should escape Strings obtained from URL parameters"
     >
         <priority>2</priority>
     </rule>
@@ -469,8 +492,7 @@
          @description: Reports on calls to addError with disabled escaping. The 
          message passed to addError will be displayed directly to the user in the 
          UI, making it prime ground for XSS attacks if unescaped. -->
-    <rule name="ApexXSSFromEscapeFalse" 
-          ref="category/apex/security.xml/ApexXSSFromEscapeFalse">
+    <rule name="ApexXSSFromEscapeFalse" ref="category/apex/security.xml/ApexXSSFromEscapeFalse">
         <priority>2</priority>
     </rule>
 
@@ -478,9 +500,11 @@
          @description: The rule makes sure you are using randomly generated IVs 
          and keys for Crypto calls. Hard-wiring these values greatly compromises 
          the security of encrypted data. -->
-    <rule name="ApexBadCrypto" 
-          ref="category/apex/security.xml/ApexBadCrypto"
-          message="Apex Crypto should use random IV/key">
+    <rule
+        name="ApexBadCrypto"
+        ref="category/apex/security.xml/ApexBadCrypto"
+        message="Apex Crypto should use random IV/key"
+    >
         <priority>2</priority>
     </rule>
 
@@ -489,9 +513,10 @@
          before a SOQL/SOSL/DML operation. Since Apex runs in system mode not 
          having proper permissions checks results in escalation of privilege and 
          may produce runtime errors. This check forces you to handle such scenarios. -->
-    <rule name="ApexCRUDViolation"
-          ref="category/apex/security.xml/ApexCRUDViolation"
-          message="Validate CRUD permission before SOQL/DML operation"
+    <rule
+        name="ApexCRUDViolation"
+        ref="category/apex/security.xml/ApexCRUDViolation"
+        message="Validate CRUD permission before SOQL/DML operation"
     >
         <priority>2</priority>
     </rule>
@@ -509,9 +534,10 @@
          Instead, you should use Named Credentials and a callout endpoint.
          For more information, you can check 
          https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_callouts_named_credentials.htm -->
-    <rule name="ApexSuggestUsingNamedCred" 
-          ref="category/apex/security.xml/ApexSuggestUsingNamedCred"
-          message="Consider using named credentials for authenticated callouts"
+    <rule
+        name="ApexSuggestUsingNamedCred"
+        ref="category/apex/security.xml/ApexSuggestUsingNamedCred"
+        message="Consider using named credentials for authenticated callouts"
     >
         <priority>2</priority>
     </rule>
@@ -523,8 +549,7 @@
          can be configured through properties.
 
          By default this rule uses the standard Apex naming convention (Pascal case). -->
-    <rule name="ClassNamingConventions"
-          ref="category/apex/codestyle.xml/ClassNamingConventions">
+    <rule name="ClassNamingConventions" ref="category/apex/codestyle.xml/ClassNamingConventions">
         <priority>3</priority>
         <properties>
             <property name="testClassPattern" value="[A-Z][a-zA-Z0-9_]*" />
@@ -542,8 +567,7 @@
          field. Each regex can be configured through properties.
 
          By default this rule uses the standard Apex naming convention (Camel case). -->
-    <rule name="FieldNamingConventions" 
-          ref="category/apex/codestyle.xml/FieldNamingConventions">
+    <rule name="FieldNamingConventions" ref="category/apex/codestyle.xml/FieldNamingConventions">
         <priority>1</priority>
         <properties>
             <property name="enumConstantPattern" value="[A-Z][A-Z0-9_]*" />
@@ -561,8 +585,7 @@
          Each regex can be configured through properties.
 
          By default this rule uses the standard Apex naming convention (Camel case). -->
-    <rule name="FormalParameterNamingConventions" 
-          ref="category/apex/codestyle.xml/FormalParameterNamingConventions">
+    <rule name="FormalParameterNamingConventions" ref="category/apex/codestyle.xml/FormalParameterNamingConventions">
         <priority>1</priority>
         <properties>
             <property name="finalMethodParameterPattern" value="[a-z][a-zA-Z0-9]*" />
@@ -577,8 +600,7 @@
          Each regex can be configured through properties.
 
          By default this rule uses the standard Apex naming convention (Camel case). -->
-    <rule name="LocalVariableNamingConventions" 
-          ref="category/apex/codestyle.xml/LocalVariableNamingConventions">
+    <rule name="LocalVariableNamingConventions" ref="category/apex/codestyle.xml/LocalVariableNamingConventions">
         <priority>1</priority>
         <properties>
             <property name="finalLocalPattern" value="[a-z][a-zA-Z0-9]*" />
@@ -593,8 +615,7 @@
          be configured through properties.
 
          By default this rule uses the standard Apex naming convention (Camel case). -->
-    <rule name="MethodNamingConventions"
-          ref="category/apex/codestyle.xml/MethodNamingConventions">
+    <rule name="MethodNamingConventions" ref="category/apex/codestyle.xml/MethodNamingConventions">
         <priority>1</priority>
         <properties>
             <property name="testPattern" value="[a-z][a-zA-Z0-9]*" />
@@ -607,8 +628,7 @@
          @description: Apex allows the use of several variables declaration of the 
          same type on one line. However, it can lead to quite messy code. This rule 
          looks for several declarations on the same line. -->
-    <rule name="OneDeclarationPerLine" 
-          ref="category/apex/codestyle.xml/OneDeclarationPerLine">
+    <rule name="OneDeclarationPerLine" ref="category/apex/codestyle.xml/OneDeclarationPerLine">
         <priority>1</priority>
         <properties>
             <property name="reportInForLoopInitializer" value="true" />
@@ -623,8 +643,7 @@
          regex can be configured through properties.
 
          By default this rule uses the standard Apex naming convention (Camel case). -->
-    <rule name="PropertyNamingConventions" 
-          ref="category/apex/codestyle.xml/PropertyNamingConventions">
+    <rule name="PropertyNamingConventions" ref="category/apex/codestyle.xml/PropertyNamingConventions">
         <priority>1</priority>
         <properties>
             <property name="staticPattern" value="[a-z][a-zA-Z0-9]*" />
@@ -636,9 +655,10 @@
          @description: Avoid using if statements without using braces to surround the 
          code block. If the code formatting or indentation is lost then it becomes 
          difficult to separate the code being controlled from the rest. -->
-    <rule name="IfStmtsMustUseBraces" 
-          ref="category/apex/codestyle.xml/IfStmtsMustUseBraces"
-          message="Avoid using if statements without curly braces"
+    <rule
+        name="IfStmtsMustUseBraces"
+        ref="category/apex/codestyle.xml/IfStmtsMustUseBraces"
+        message="Avoid using if statements without curly braces"
     >
         <priority>2</priority>
     </rule>
@@ -647,9 +667,10 @@
          @description: Avoid using ‘while’ statements without using braces to surround 
          the code block. If the code formatting or indentation is lost then it becomes 
          difficult to separate the code being controlled from the rest. -->
-    <rule name="WhileLoopsMustUseBraces" 
-          ref="category/apex/codestyle.xml/WhileLoopsMustUseBraces"
-          message="Avoid using 'while' statements without curly braces"
+    <rule
+        name="WhileLoopsMustUseBraces"
+        ref="category/apex/codestyle.xml/WhileLoopsMustUseBraces"
+        message="Avoid using 'while' statements without curly braces"
     >
         <priority>2</priority>
     </rule>
@@ -658,9 +679,10 @@
          @description: Avoid using if..else statements without using surrounding braces.
          If the code formatting or indentation is lost then it becomes difficult to 
          separate the code being controlled from the rest. -->
-    <rule name="IfElseStmtsMustUseBraces" 
-          ref="category/apex/codestyle.xml/IfElseStmtsMustUseBraces"
-          message="Avoid using 'if...else' statements without curly braces"
+    <rule
+        name="IfElseStmtsMustUseBraces"
+        ref="category/apex/codestyle.xml/IfElseStmtsMustUseBraces"
+        message="Avoid using 'if...else' statements without curly braces"
     >
         <priority>2</priority>
     </rule>
@@ -669,9 +691,10 @@
          @description: Avoid using ‘for’ statements without using surrounding braces. If 
          the code formatting or indentation is lost then it becomes difficult to separate 
          the code being controlled from the rest. -->
-    <rule name="ForLoopsMustUseBraces" 
-          ref="category/apex/codestyle.xml/ForLoopsMustUseBraces"
-          message="Avoid using 'for' statements without curly braces"
+    <rule
+        name="ForLoopsMustUseBraces"
+        ref="category/apex/codestyle.xml/ForLoopsMustUseBraces"
+        message="Avoid using 'for' statements without curly braces"
     >
         <priority>2</priority>
     </rule>
