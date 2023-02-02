@@ -5,5 +5,6 @@ public with sharing class EmptyCatchBlock {
         } catch (Exception ex) {
             // ignored
         }
+
     }
 }
