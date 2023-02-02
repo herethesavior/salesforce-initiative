@@ -4,6 +4,7 @@ public with sharing class AvoidDeeplyNestedIfStmts {
             if (y > z) {
                 if (z == x) {
                     Integer space = x * y * z;
+                    // !! too deep
                     // ...
                 }
             }
