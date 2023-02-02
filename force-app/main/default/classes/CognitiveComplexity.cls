@@ -20,7 +20,7 @@ public with sharing class CognitiveComplexity {
     // Has a cognitive complexity of 4
     public void updateContacts(List<Contact> contacts) {
         List<Contact> contactsToUpdate = new List<Contact>();
-
+        Integer n = 0;
         for (Contact contact : contacts) {
             // +1
             if (contact.Department == 'Finance') {
@@ -31,9 +31,34 @@ public with sharing class CognitiveComplexity {
                 // +1
                 contact.Title = 'Sales Specialist';
                 contactsToUpdate.add(contact);
+            } else {
+                contact.Title = 'No specialization';
             }
             n++;
         }
-        while (n < 100);
+        while (n < 100) {
+            if (contact.Department == 'Production') {
+                // +2 (nesting = 1)
+                contact.Title = 'Production Specialist';
+                contactsToUpdate.add(contact);
+            } else if (contact.Department == 'Marketing') {
+                // +1
+                contact.Title = 'Marketing Specialist';
+                contactsToUpdate.add(contact);
+            } else if (contact.Department == 'Human Resource') {
+                // +1
+                contact.Title = 'HR Specialist';
+                contactsToUpdate.add(contact);
+            } else if (contact.Department == 'IT') {
+                // +1
+                contact.Title = 'Development Specialist';
+                contactsToUpdate.add(contact);
+            } else {
+                String x = 'test';
+                if (x != 'aa') {
+                    contact.Title = 'No specialization';
+                }
+            }
+        }
     }
 }
