@@ -6,4 +6,4 @@ public with sharing class ApexBadCrypto {
 
         return Crypto.encrypt('AES128', hardCodedKey, hardCodedIV, secret);
     }
-} 
+}
