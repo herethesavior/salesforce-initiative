@@ -7,8 +7,8 @@ public with sharing class ApexCSRF {
         delete [SELECT Id FROM Account];
     }
 
-    // initializer
     {
+        // initializer
         insert data;
     }
 
