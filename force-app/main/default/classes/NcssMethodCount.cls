@@ -40,7 +40,7 @@ public with sharing class NcssMethodCount {
         super.method30(); //31
         super.method31(); //32
 
-        method32(); //33 
+        method32(); //33
         method33(); //34
         method34(); //35
         method35(); //36
