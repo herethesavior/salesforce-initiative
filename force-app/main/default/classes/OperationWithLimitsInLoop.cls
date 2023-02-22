@@ -1,31 +1,31 @@
 public with sharing class OperationWithLimitsInLoop {
     public void databaseMethodInsideOfLoop(List<Account> accounts) {
-for (Account a : accounts) {
-    Database.insert(a);
-}
-}
+        for (Account a : accounts) {
+            Database.insert(a);
+        }
+    }
 
-public void dmlInsideOfLoop() {
-for (Integer i = 0; i < 151; i++) {
-    Account account;
-    // ...
-    insert account;
-}
-}
+    public void dmlInsideOfLoop() {
+        for (Integer i = 0; i < 151; i++) {
+            Account account;
+            // ...
+            insert account;
+        }
+    }
 
     public void soqlInsideOfLoop() {
-for (Integer i = 0; i < 10; i++) {
-    List<Account> accounts = [SELECT Id FROM Account];
-}
-}
+        for (Integer i = 0; i < 10; i++) {
+            List<Account> accounts = [SELECT Id FROM Account];
+        }
+    }
 
     public void soslInsideOfLoop() {
-    for (Integer i = 0; i < 10; i++) {
-        List<List<SObject>> searchList = [
-            FIND 'map*'
-            IN ALL FIELDS
-            RETURNING Account(Id, Name), Contact, Opportunity, Lead
-        ];
+        for (Integer i = 0; i < 10; i++) {
+            List<List<SObject>> searchList = [
+                FIND 'map*'
+                IN ALL FIELDS
+                RETURNING Account(Id, Name), Contact, Opportunity, Lead
+            ];
         }
     }
 
