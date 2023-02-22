@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AuraDefinitionBundle xmlns="http://soap.sforce.com/2006/04/metadata">
-<<<<<<< HEAD
     <apiVersion>56.0</apiVersion>
     <description>A Lightning Component Bundle</description>
 </AuraDefinitionBundle>
-=======
-<apiVersion>56.0</apiVersion>
-<description>A Lightning Component Bundle</description>
-</AuraDefinitionBundle>
->>>>>>> 69af7756d3aa2878f3261e6185e42c629f8cc90b
