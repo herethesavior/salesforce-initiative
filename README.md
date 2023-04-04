@@ -1,5 +1,7 @@
 # Salesforce Initiative
 
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 **Salesforce Initiative** is a playground org to test improvement tools or scripts. There is currently a github action for code auto prettier reformat and pmd report generation upon PR included in this initiative.
 
 ## 🚀 Installation and Usage
