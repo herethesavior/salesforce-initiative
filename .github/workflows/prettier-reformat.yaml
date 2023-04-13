@@ -1,51 +1,32 @@
 name: validate-pull-request
-
 on:
-  pull_request:
-    branches:
-      - main
-
+  - pull_request
 jobs:
   format-source-code:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Cache Node.js dependencies
-        uses: actions/cache@v2
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
+          node-version: "18"
+          cache: "npm"
       - name: Install dependencies
         run: npm ci
       - name: Get unformatted files
         id: changes
         run: |
-          git fetch --depth=1 origin ${{ github.event.pull_request.base.ref }}
-          git diff -z --name-only --diff-filter=ACMRT origin/${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }} | xargs -0 -I {} npx prettier --write "{}"
-      - name: Cache formatted files
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules/
-            src/
-          key: ${{ runner.os }}-formatted-${{ hashFiles('src/**') }}
-          restore-keys: |
-            ${{ runner.os }}-formatted-
+          git diff -z --name-only --diff-filter=ACMRT origin/${{ github.event.pull_request.base.ref}}...origin/${{ github.event.pull_request.head.ref }} | xargs -0 -I {} npx prettier --write "{}"
       - name: Commit formatted files
         run: |
           git config --local user.email "$(git log --format='%ae' HEAD^!)"
           git config --local user.name "$(git log --format='%an' HEAD^!)"
           git add .
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain)" ]; then
             exit 0
           fi
           git commit -m "chore: format source code with Prettier"
