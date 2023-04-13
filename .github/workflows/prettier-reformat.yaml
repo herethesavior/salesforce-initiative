@@ -1,18 +1,27 @@
 name: validate-pull-request
 
 on:
-  - pull_request
+  pull_request:
+    branches:
+      - main
 
 jobs:
   format-source-code:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 18
       - name: Install dependencies
@@ -22,13 +31,21 @@ jobs:
         run: |
           git fetch --depth=1 origin ${{ github.event.pull_request.base.ref }}
           git diff -z --name-only --diff-filter=ACMRT origin/${{ github.event.pull_request.base.ref }}..origin/${{ github.event.pull_request.head.ref }} | xargs -0 -I {} npx prettier --write "{}"
+      - name: Cache formatted files
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules/
+            src/
+          key: ${{ runner.os }}-formatted-${{ hashFiles('src/**') }}
+          restore-keys: |
+            ${{ runner.os }}-formatted-
       - name: Commit formatted files
         run: |
           git config --local user.email "$(git log --format='%ae' HEAD^!)"
           git config --local user.name "$(git log --format='%an' HEAD^!)"
           git add .
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Nothing to format"
+          if git diff --quiet; then
             exit 0
           fi
           git commit -m "chore: format source code with Prettier"
