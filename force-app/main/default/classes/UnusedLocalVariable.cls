@@ -3,6 +3,6 @@ public with sharing class UnusedLocalVariable {
         String x = 'some string'; // not used
         String z = 'z string';
         String y = 'some other string'; // used in the next line
-    return z.equals(y);
+        return z.equals(y);
     }
 }
