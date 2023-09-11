@@ -2,8 +2,8 @@
  * @description This class will contain all method related to Account Business Logic
  */
 public with sharing class AccountBl {
-     public static final String LENGTH_TYPE = 'Length';
-     public static void insertNewAccount(String accntName) {
+    public static final String LENGTH_TYPE = 'Length';
+    public static void insertNewAccount(String accntName) {
         for (Integer i = 0; i < 10; i++) {
             Account acct = new Account();
             acct.Name = accntName;
